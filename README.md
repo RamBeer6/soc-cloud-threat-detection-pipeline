@@ -283,6 +283,8 @@ Before publishing, the repo is already structured to support a strong showcase:
 - CLI and web dashboard views
 - clean repository hygiene with `.gitignore`
 
+For ready-to-paste GitHub repository metadata, see [docs/github-launch-kit.md](C:/Users/ramro/Cloud Threat Detection Pipeline (SOC Project)/docs/github-launch-kit.md).
+
 ## Linux-Friendly Run Script
 
 For a quick full demo run on Linux or macOS:

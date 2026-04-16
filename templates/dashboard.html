@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cloud Threat Detection Pipeline</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">SOC-Oriented System</p>
+          <h1>Cloud Threat Detection Dashboard</h1>
+          <p class="hero-text">
+            Analyst-facing visibility into generated authentication telemetry, rule-based detections,
+            and high-signal suspicious IP activity.
+          </p>
+        </div>
+        <div class="hero-status">
+          <span class="status-pill status-{{ status }}">{{ status.replace('_', ' ') }}</span>
+          <p>{{ message }}</p>
+          <dl class="meta-list">
+            <div>
+              <dt>Log File</dt>
+              <dd>{{ log_file }}</dd>
+            </div>
+            <div>
+              <dt>Alert File</dt>
+              <dd>{{ alert_file }}</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="metric-grid">
+        <article class="metric-card">
+          <span>Total Events</span>
+          <strong>{{ summary.total_events }}</strong>
+        </article>
+        <article class="metric-card">
+          <span>Alerts Generated</span>
+          <strong>{{ summary.alert_count }}</strong>
+        </article>
+        <article class="metric-card">
+          <span>Top Source</span>
+          <strong>{{ summary.top_talkers[0][0] if summary.top_talkers else "N/A" }}</strong>
+        </article>
+        <article class="metric-card">
+          <span>Top Suspicious IP</span>
+          <strong>{{ summary.top_suspicious_ips[0][0] if summary.top_suspicious_ips else "N/A" }}</strong>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Top Active IPs</h2>
+            <span>High-volume authentication sources</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>IP Address</th>
+                <th>Events</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if summary.top_talkers %}
+                {% for ip, count in summary.top_talkers %}
+                  <tr>
+                    <td>{{ ip }}</td>
+                    <td>{{ count }}</td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="2">No events processed.</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </article>
+
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Top Suspicious IPs</h2>
+            <span>IPs with the highest alert volume</span>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>IP Address</th>
+                <th>Alerts</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if summary.top_suspicious_ips %}
+                {% for ip, count in summary.top_suspicious_ips %}
+                  <tr>
+                    <td>{{ ip }}</td>
+                    <td>{{ count }}</td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr>
+                  <td colspan="2">No suspicious IPs detected.</td>
+                </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </article>
+      </section>
+
+      <section class="content-grid lower-grid">
+        <article class="panel">
+          <div class="panel-header">
+            <h2>Alert Breakdown</h2>
+            <span>Detection types fired by the analyzer</span>
+          </div>
+          <div class="badge-stack">
+            {% if summary.alerts_by_type %}
+              {% for label, count in summary.alerts_by_type.items() %}
+                <div class="alert-badge">
+                  <span>{{ label.replace('_', ' ') }}</span>
+                  <strong>{{ count }}</strong>
+                </div>
+              {% endfor %}
+            {% else %}
+              <p class="empty-state">No alerts generated.</p>
+            {% endif %}
+          </div>
+        </article>
+
+        <article class="panel wide-panel">
+          <div class="panel-header">
+            <h2>Recent Alerts</h2>
+            <span>Most recent persisted findings from the alert log</span>
+          </div>
+          <div class="alert-list">
+            {% if recent_alerts %}
+              {% for alert in recent_alerts %}
+                <div class="alert-item severity-{{ alert.severity }}">
+                  <div class="alert-item-top">
+                    <span class="alert-type">{{ alert.threat_type.replace('_', ' ') }}</span>
+                    <span class="alert-severity">{{ alert.severity }}</span>
+                  </div>
+                  <p>{{ alert.explanation }}</p>
+                  <div class="alert-meta">
+                    <span>{{ alert.timestamp }}</span>
+                    <span>{{ alert.ip }}</span>
+                    <span>{{ alert.user or "unknown-user" }}</span>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <p class="empty-state">No alerts have been written yet.</p>
+            {% endif %}
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

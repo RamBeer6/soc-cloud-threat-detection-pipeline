@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  soc-pipeline:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: soc-threat-detection
+    volumes:
+      - ../logs:/app/logs
+    command: ["python", "src/main.py", "run", "--count", "200", "--output", "logs/events.jsonl", "--alerts-output", "logs/alerts.log"]

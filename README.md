@@ -324,6 +324,10 @@ chmod +x run_pipeline.sh
 
 This project is released under the MIT License. See `LICENSE`.
 
+## Security Policy
+
+For safe usage notes and security reporting guidance, see [SECURITY.md](SECURITY.md).
+
 ## Why It Works Well for a Security Portfolio
 
 This project showcases skills that map directly to security engineering and SOC work:

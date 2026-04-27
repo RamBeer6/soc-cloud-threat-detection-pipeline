@@ -301,6 +301,7 @@ For ready-to-paste GitHub repository metadata, see [docs/github-launch-kit.md](d
 ## Supporting Docs
 
 - [Detection Rules Reference](docs/detection-rules.md)
+- [Operations Runbook](docs/operations-runbook.md)
 - [Sample Incident Report](docs/sample-incident-report.md)
 
 ## Linux-Friendly Run Script

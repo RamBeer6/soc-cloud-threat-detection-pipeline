@@ -1,5 +1,7 @@
 # Cloud Threat Detection Pipeline (SOC-Oriented System)
 
+[![CI](https://github.com/RamBeer6/soc-cloud-threat-detection-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/RamBeer6/soc-cloud-threat-detection-pipeline/actions/workflows/ci.yml)
+
 A production-style Python project that simulates a real Security Operations Center (SOC) detection pipeline. The system generates structured authentication logs, analyzes them with rule-based detection logic, emits alerts, and prints an operational dashboard summary.
 
 This repository is designed for a GitHub portfolio targeting cybersecurity, DevSecOps, detection engineering, and SOC analyst roles.

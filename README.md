@@ -160,6 +160,17 @@ Alert types:
   - known_suspicious_ip_activity: 4
 ```
 
+## Screenshots
+
+### Web Dashboard
+![Dashboard](docs/screenshots/dashboard.png)
+
+### CLI Output
+![CLI Output](docs/screenshots/cli-output.png)
+
+### Alerts Log
+![Alerts Log](docs/screenshots/alerts-log.png)
+
 ## How to Run Locally
 
 ### 1. Generate sample logs only
